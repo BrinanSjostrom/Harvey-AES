@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "base64.h"
+#include "base64Key.h"
+#include "binary.h"
 
 int main(int argc, char *argv[])
 {
-  int in = b64encode("ruhyvfudysavfda");
-  printf("%i\n", in);
+
+  char ch = tob64("000001");
+
+  printf("%i\n", binTochar("00000001"));
 return 0;
 }

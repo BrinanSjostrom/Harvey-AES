@@ -1,3 +1,7 @@
+#ifndef _BINARY_H_
+#define _BINARY_H_
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -34,3 +38,5 @@ char binTochar(char *binStr)
   }
 return ch;
 }
+
+#endif

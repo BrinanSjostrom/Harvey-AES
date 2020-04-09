@@ -1,3 +1,7 @@
+#ifndef _BASE64_H_
+#define _BASE64_H_
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,3 +46,5 @@ int b64encode(char *str)
 
 return padding;
 }
+
+#endif
