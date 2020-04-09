@@ -28,13 +28,13 @@ return binStr;
 char binTochar(char *binStr)
 {
   char ch = 0;
-  for(int i = 0; i < 7; i++)
+  for(int i = 0; i <= 7; i++)
   {
+    ch <<= 1;
     if(*(binStr + i) == '1')
     {
-      ch++;
+      ch += 1;
     }
-    ch <<= 1;
   }
 return ch;
 }

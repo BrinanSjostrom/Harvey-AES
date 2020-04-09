@@ -17,7 +17,6 @@ char tob64(char *binStr)
   char *bit_8 = (char*)malloc(9 * sizeof(char));
   strcpy(bit_8, "00");
   strcat(bit_8, binStr);
-  printf("%s\n%i\n", bit_8, binTochar(bit_8));
 
   return letters[binTochar(bit_8)];
 }
