@@ -3,6 +3,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
+/******************************
+Function will get input of
+unknown length from user. The
+way this works is by extending
+the str variable until the
+input stream is empty.
+******************************/
 char *input()
 {
    int size = 1;
