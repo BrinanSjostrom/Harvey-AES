@@ -87,7 +87,6 @@ char *b64decode(char *base64Str)
   int padding = 0;
   int length = strlen(base64Str);
   int size = 1;
-  char *buffer = NULL;
   char *binStr = (char*)malloc(size * sizeof(char));
   strcpy(binStr, "");
 
@@ -109,12 +108,29 @@ char *b64decode(char *base64Str)
 
   if(padding == 1 || padding == 2)
   {
-  size = size - (padding * 2);
-  *(binStr + size - 1) = '\0';
-  binStr = (char*)realloc(binStr, size * sizeof(char));
+    size = size - (padding * 2);
+    *(binStr + size - 1) = '\0';
+    binStr = (char*)realloc(binStr, size * sizeof(char));
   }
 
-return binStr;
+  int retStrSize = (strlen(binStr) / 8) + 1;
+  char *retStr = (char*)malloc(retStrSize * sizeof(char));
+  *(retStr + retStrSize - 1) = '\0';
+  int count = 0;
+  for(int i = 0; i < strlen(binStr); i+=8)
+  {
+    char *buffer = (char*)malloc(9 * sizeof(char));
+    *(buffer + 8) = '\0';
+    for(int n = i; n < i + 8; n++)
+    {
+      *(buffer + n - i) = *(binStr + n);
+    }
+    *(retStr + count) = binTochar(buffer);
+    count++;
+    free(buffer);
+  }
+  free(binStr);
+return retStr;
 }
 
 #endif
