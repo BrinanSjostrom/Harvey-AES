@@ -107,14 +107,11 @@ char *b64decode(char *base64Str)
      strcat(binStr, fromb64(*(base64Str + i)));
   }
 
-  if(padding > 0)
+  if(padding == 1 || padding == 2)
   {
-  // DO THIS!!!!
-  /****************************
-  You need to make so that the
-  code takes the padding zeros
-  off of the binStr variable!!
-  ****************************/
+  size = size - (padding * 2);
+  *(binStr + size - 1) = '\0';
+  binStr = (char*)realloc(binStr, size * sizeof(char));
   }
 
 return binStr;
