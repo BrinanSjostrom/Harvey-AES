@@ -109,14 +109,12 @@ char *b64decode(char *base64Str)
 
   if(padding > 0)
   {
-    char *binStr2 = (char*)malloc((size - (padding * 2)) * sizeof(char));
-    for(int i = 0; i < size - (padding * 2); i++)
-    {
-      *(binStr2 + i) = *(binStr + i);
-    }
-    free(binStr);
-    char *binStr = binStr2;
-    return binStr2;
+  // DO THIS!!!!
+  /****************************
+  You need to make so that the
+  code takes the padding zeros
+  off of the binStr variable!!
+  ****************************/
   }
 
 return binStr;
