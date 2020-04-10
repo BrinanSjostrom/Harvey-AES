@@ -64,6 +64,7 @@ char *b64encode(char *str)
     base64Str = (char*)realloc(base64Str, size * sizeof(char));
     char bufferStr[2] = {tob64(buffer2), '\0'};
     strcat(base64Str, bufferStr);
+    free(buffer2);
   }
 
   if(padding > 0)
@@ -75,9 +76,51 @@ char *b64encode(char *str)
       strcat(base64Str, "=");
     }
   }
-
+  free(binStr);
 
 return base64Str;
 }
 
+
+char *b64decode(char *base64Str)
+{
+  int padding = 0;
+  int length = strlen(base64Str);
+  int size = 1;
+  char *buffer = NULL;
+  char *binStr = (char*)malloc(size * sizeof(char));
+  strcpy(binStr, "");
+
+  if(*(base64Str + length - 1) == '=' && *(base64Str + length - 2) == '=')
+  {
+    padding = 2;
+  }
+  else if(*(base64Str + length - 1) == '=')
+  {
+    padding = 1;
+  }
+
+  for(int i = 0; i < length - padding; i++)
+  {
+     size += 6;
+     binStr = (char*)realloc(binStr, size * sizeof(char));
+     strcat(binStr, fromb64(*(base64Str + i)));
+  }
+
+  if(padding > 0)
+  {
+    char *binStr2 = (char*)malloc((size - (padding * 2)) * sizeof(char));
+    for(int i = 0; i < size - (padding * 2); i++)
+    {
+      *(binStr2 + i) = *(binStr + i);
+    }
+    free(binStr);
+    char *binStr = binStr2;
+    return binStr2;
+  }
+
+return binStr;
+}
+
 #endif
+
