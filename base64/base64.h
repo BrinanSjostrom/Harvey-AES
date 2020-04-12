@@ -1,137 +1,86 @@
 #ifndef _BASE64_H_
 #define _BASE64_H_
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "binary.h"
 #include "base64Key.h"
-#define BYTE 8
+#include "binary.h"
+#include "parse.h"
 
-char *b64encode(char *str)
+char *b64encode(char *array, int size)
 {
+  char *buffer3 = (char*)malloc(25 * sizeof(char));
+  int b64Size = 1;
+  char *base64 = (char*)malloc(b64Size * sizeof(char));
+  strcpy(base64 ,"");
 
-  int padding;
-  char *buffer = (char*)malloc(9 * sizeof(char));
-  int bytes = 1;
-  char *binStr = (char*)malloc(1 * sizeof(char));
-  strcpy(binStr, "");
-
-
-  for(int i = 0; i < strlen(str); i++)
+ for(int i = 0; i < size; i++)
   {
-    char *buffer = (char*)malloc(9 * sizeof(char));
+    char *buffer8 = charTobin(*(array + i));
 
-    binStr = (char*)realloc(binStr, (BYTE * bytes + 1) * sizeof(char));
-    bytes++;
+    strcat(buffer3, buffer8);
+    free(buffer8);
 
-    buffer = charTobin(*(str + i));
-    strcat(binStr, buffer);
-
-    free(buffer);
-  }
-
-  if(strlen(binStr) % 6 == 4)
-  {
-    padding = 1;
-    binStr = (char*)realloc(binStr, (BYTE * bytes + 3) * sizeof(char));
-    strcat(binStr, "00");
-  }
-  else if(strlen(binStr) % 6 == 2)
-  {
-    padding = 2;
-    binStr = (char*)realloc(binStr, (BYTE * bytes + 5) * sizeof(char));
-    strcat(binStr, "0000");
-  }
-  else
-  {
-    padding = 0;
-  }
-
-  int size = 1;
-  char *base64Str = (char*)malloc(size * sizeof(char));
-  strcpy(base64Str, "");
-  for(int i = 0; i < strlen(binStr); i += 6)
-  {
-    char *buffer2 = (char*)malloc(7 * sizeof(char));
-    *(buffer2 + 6) = '\0';
-    for(int n = i; n < i + 6; n++)
+    if((i + 1) % 3 == 0)
     {
-      *(buffer2 + (n-i)) = *(binStr + n);
+      for(int n = 0; n < 24; n+=6)
+      {
+        char *buffer6 = parse(buffer3, n, n + 6);
+        char ch = tob64(buffer6);
+        free(buffer6);
+
+        b64Size++;
+        base64 = (char*)realloc(base64 ,b64Size * sizeof(char));
+        char sch[2] = {ch, '\0'};
+        strcat(base64, sch);
+
+      }
+      strcpy(buffer3, "");
     }
-    size++;
-    base64Str = (char*)realloc(base64Str, size * sizeof(char));
-    char bufferStr[2] = {tob64(buffer2), '\0'};
-    strcat(base64Str, bufferStr);
-    free(buffer2);
+
   }
 
-  if(padding > 0)
+
+  if(strlen(buffer3) != 0)
   {
-    size += padding;
-    base64Str = (char*)realloc(base64Str, size * sizeof(char));
-    for(int i = 0; i < padding; i++)
+    int padding = 3 - (strlen(buffer3)/8);
+    if(padding == 1)
     {
-      strcat(base64Str, "=");
+      strcat(buffer3, "00");
+      for(int i = 0; i < 18; i+=6)
+      {
+         char *buffer6 = parse(buffer3, i, i + 6);
+         b64Size++;
+         base64 = (char*)realloc(base64 ,b64Size * sizeof(char));
+         char ch = tob64(buffer6);
+         *(base64 + b64Size - 2) = ch;
+         free(buffer6);
+      }
+      b64Size++;
+      base64 = (char*)realloc(base64 ,b64Size * sizeof(char));
+      *(base64 + b64Size - 2) = '=';
+      *(base64 + b64Size - 1) = '\0';
     }
-  }
-  free(binStr);
-
-return base64Str;
-}
-
-
-char *b64decode(char *base64Str)
-{
-  int padding = 0;
-  int length = strlen(base64Str);
-  int size = 1;
-  char *binStr = (char*)malloc(size * sizeof(char));
-  strcpy(binStr, "");
-
-  if(*(base64Str + length - 1) == '=' && *(base64Str + length - 2) == '=')
-  {
-    padding = 2;
-  }
-  else if(*(base64Str + length - 1) == '=')
-  {
-    padding = 1;
-  }
-
-  for(int i = 0; i < length - padding; i++)
-  {
-     size += 6;
-     binStr = (char*)realloc(binStr, size * sizeof(char));
-     strcat(binStr, fromb64(*(base64Str + i)));
-  }
-
-  if(padding == 1 || padding == 2)
-  {
-    size = size - (padding * 2);
-    *(binStr + size - 1) = '\0';
-    binStr = (char*)realloc(binStr, size * sizeof(char));
-  }
-
-  int retStrSize = (strlen(binStr) / 8) + 1;
-  char *retStr = (char*)malloc(retStrSize * sizeof(char));
-  *(retStr + retStrSize - 1) = '\0';
-  int count = 0;
-  for(int i = 0; i < strlen(binStr); i+=8)
-  {
-    char *buffer = (char*)malloc(9 * sizeof(char));
-    *(buffer + 8) = '\0';
-    for(int n = i; n < i + 8; n++)
+    else if(padding == 2)
     {
-      *(buffer + n - i) = *(binStr + n);
+      for(int i = 0; i < 12; i+=6)
+      {
+         char *buffer6 = parse(buffer3, i, i + 6);
+         b64Size++;
+         base64 = (char*)realloc(base64 ,b64Size * sizeof(char));
+         char ch = tob64(buffer6);
+         *(base64 + b64Size - 2) = ch;
+         free(buffer6);
+      }
+      b64Size += 2;
+      base64 = (char*)realloc(base64 ,b64Size * sizeof(char));
+      strcat(base64, "==");
     }
-    *(retStr + count) = binTochar(buffer);
-    count++;
-    free(buffer);
   }
-  free(binStr);
-return retStr;
+
+  free(buffer3);
+return base64;
 }
 
 #endif
-
