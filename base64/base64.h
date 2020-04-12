@@ -15,7 +15,7 @@ char *b64encode(char *array, int size)
   char *base64 = (char*)malloc(b64Size * sizeof(char));
   strcpy(base64 ,"");
 
- for(int i = 0; i < size; i++)
+  for(int i = 0; i < size; i++)
   {
     char *buffer8 = charTobin(*(array + i));
 
@@ -40,7 +40,6 @@ char *b64encode(char *array, int size)
     }
 
   }
-
 
   if(strlen(buffer3) != 0)
   {
