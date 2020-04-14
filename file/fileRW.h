@@ -4,14 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../base64/binary.h"
 
-char *readFile(char *fileName, int *fileSize)
+unsigned char *readFile(char *fileName, size_t *fileSize)
 {
   FILE *pFile = fopen(fileName, "rb");
   int ch;
   *fileSize = 0;
-  char *fileStr = (char*)malloc(sizeof(char));
+  unsigned char *fileStr = (unsigned char*)malloc(sizeof(unsigned char));
 
   while(1)
   {
@@ -21,11 +20,26 @@ char *readFile(char *fileName, int *fileSize)
       break;
     }
     (*fileSize) += 1;
-    fileStr = (char*)realloc(fileStr, (*fileSize) * sizeof(char));
+    fileStr = (unsigned char*)realloc(fileStr, (*fileSize) * sizeof(unsigned char));
     *(fileStr + *fileSize - 1) = ch;
   }
   fclose(pFile);
 return fileStr;
 }
+
+int writeFile(char *fileName, size_t fileSize, unsigned char *fileContents)
+{
+  FILE *pFile = fopen(fileName, "wb+");
+  int ch = 0;
+
+  for(int i = 0; i < fileSize; i++)
+  {
+    ch = *(fileContents + i);
+    fputc(ch, pFile);
+  }
+fclose(pFile);
+return 0;
+}
+
 
 #endif

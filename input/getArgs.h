@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 /******************************
 Function will return the index
 of the argument in the argv
@@ -11,6 +12,7 @@ variable by using the
 identifiers chArg and strArg to
 find them.
 ******************************/
+
 int getArgs(char chArg, char *strArg, int argc, char *argv[])
 {
   if(!(argc > 1))
