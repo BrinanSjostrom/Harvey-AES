@@ -3,8 +3,6 @@
 #include <stdint.h>
 
 int getrsboxIndex(int);
-unsigned char *getMixMatrix();
-unsigned char xor(unsigned char, unsigned char);
 unsigned char *subBytes(unsigned char[4][4]);
 unsigned char *shiftRows(unsigned char[4][4]);
 unsigned char *mixColumns(unsigned char[4][4]);
@@ -31,10 +29,10 @@ unsigned char *shiftRows(unsigned char table[4][4])
     for(int i = 0; i < row; i++)
     {
       buffer = table[row][0];
-      table[row][0] = table[row][1];
-      table[row][1] = table[row][2];
-      table[row][2] = table[row][3];
-      table[row][3] = buffer;
+      table[i][0] = table[row][1];
+      table[i][1] = table[row][2];
+      table[i][2] = table[row][3];
+      table[i][3] = buffer;
     }
   }
 
@@ -58,24 +56,14 @@ unsigned char *mixColumns(unsigned char table[4][4]) //work on this function!!!!
     }
     for(int i = 0; i < 4; i++)
     {
-      newColumn[i] = ((matrix[i][0] * charColumn[0]) +
-                     (matrix[i][1] * charColumn[1]) +
-                     (matrix[i][2] * charColumn[2]) +
-                     (matrix[i][3] * charColumn[3])) % 255;
-    }
-    for(int column = 0; column < 4; column++)
-    {
-      table[row][column] = newColumn[column];                                                                                                                  charColumn[column] = table[row][column];
+      newColumn[i] = ((matrix[row][0] * charColumn[0]) +
+                     (matrix[row][1] * charColumn[1]) +
+                     (matrix[row][2] * charColumn[2]) +
+                     (matrix[row][3] * charColumn[3])) % 255;
     }
   }
   unsigned char *ptable = &table[0][0];
 return ptable;
-}
-
-unsigned char xor(unsigned char a, unsigned char b)
-{
-  unsigned char c = (!(a && b)) && (a || b);
-return c;
 }
 
 int getrsboxIndex(int num){
