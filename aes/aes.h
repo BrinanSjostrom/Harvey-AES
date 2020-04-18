@@ -6,7 +6,7 @@ int getrsboxIndex(int);
 unsigned char *subBytes(unsigned char[4][4]);
 unsigned char *shiftRows(unsigned char[4][4]);
 unsigned char *mixColumns(unsigned char[4][4]);
-
+unsigned char galoisMulti(unsigned char, unsigned char);
 
 unsigned char *subBytes(unsigned char table[4][4])
 {
@@ -48,22 +48,51 @@ unsigned char *mixColumns(unsigned char table[4][4]) //work on this function!!!!
                                       {3, 1, 1, 2}};
   unsigned char charColumn[4];
   unsigned char newColumn[4];
-  for(int row = 0; row < 4; row++)
+  for(int column = 0; column < 4; column++)
   {
-    for(int column = 0; column < 4; column++)
+    for(int row = 0; row < 4; row++)
     {
-      charColumn[column] = table[row][column];
+      charColumn[row] = table[row][column];
     }
     for(int i = 0; i < 4; i++)
     {
-      newColumn[i] = ((matrix[row][0] * charColumn[0]) +
-                     (matrix[row][1] * charColumn[1]) +
-                     (matrix[row][2] * charColumn[2]) +
-                     (matrix[row][3] * charColumn[3])) % 255;
+      newColumn[i] = galoisMulti(matrix[i][0], charColumn[0]) ^
+                     galoisMulti(matrix[i][1], charColumn[1]) ^
+                     galoisMulti(matrix[i][2], charColumn[2]) ^
+                     galoisMulti(matrix[i][3], charColumn[3]);
+    }
+    for(int row = 0; row < 4; row++)
+    {
+      table[row][column] = newColumn[row];
     }
   }
   unsigned char *ptable = &table[0][0];
 return ptable;
+}
+
+unsigned char galoisMulti(unsigned char a, unsigned char b)
+{
+  unsigned char p = 0;
+  _Bool high_a_bit = 0;
+  for(int i = 0; i < 8; i++)
+  {
+    high_a_bit = 0;
+    if(b % 2 == 1)
+    {
+      p = p ^ a;
+    }
+    if(a >= 128)
+    {
+      _Bool high_a_bit = 0;
+    }
+    a <<= 1;
+    if(high_a_bit)
+    {
+      a = a ^ 0x1b;
+    }
+    b >>= 1;
+  }
+return p;
 }
 
 int getrsboxIndex(int num){
