@@ -5,13 +5,14 @@
 #include "cpyMatrix.h"
 
 unsigned char getinvrsboxIndex(unsigned char);
-unsigned char mul14(unsigned char);
-unsigned char mul13(unsigned char);
-unsigned char mul11(unsigned char);
-unsigned char mul9(unsigned char);
+unsigned char getmul14(unsigned char);
+unsigned char getmul13(unsigned char);
+unsigned char getmul11(unsigned char);
+unsigned char getmul9(unsigned char);
 void invsubBytes(unsigned char[4][4], unsigned char *);
 void invshiftRows(unsigned char[4][4], unsigned char *);
 void invmixColumns(unsigned char[4][4], unsigned char *);
+
 
 void invsubBytes(unsigned char inTable[4][4], unsigned char *out)
 {
@@ -25,6 +26,7 @@ void invsubBytes(unsigned char inTable[4][4], unsigned char *out)
   }
   cpyMatrix(&output[0][0], out);
 }
+
 
 void invshiftRows(unsigned char inTable[4][4], unsigned char *out)
 {
@@ -43,6 +45,7 @@ void invshiftRows(unsigned char inTable[4][4], unsigned char *out)
   }
   cpyMatrix(&inTable[0][0], out);
 }
+
 
 void invmixColumns(unsigned char inTable[4][4], unsigned char *out)
 {

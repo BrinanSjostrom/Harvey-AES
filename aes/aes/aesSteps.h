@@ -97,7 +97,7 @@ return;
 
 void addRoundKey(unsigned char input[4][4], unsigned char roundKey[4][4], unsigned char *out)
 {
-  static unsigned char output[4][4];
+  unsigned char output[4][4];
 
   for(int row = 0; row < 4; row++)
   {
