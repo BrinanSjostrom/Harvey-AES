@@ -33,7 +33,6 @@ return;
 
 void shiftRows(unsigned char table[4][4], unsigned char *out)
 {
-  unsigned char output[4][4];
   unsigned char buffer;
   int rep = 0;
   for(int i = 0; i < 4; i++)
@@ -41,15 +40,15 @@ void shiftRows(unsigned char table[4][4], unsigned char *out)
     for(int n = 0; n < rep; n++)
     {
       buffer = table[i][0];
-      output[i][0] = table[i][1];
-      output[i][1] = table[i][2];
-      output[i][2] = table[i][3];
-      output[i][3] = buffer;
+      table[i][0] = table[i][1];
+      table[i][1] = table[i][2];
+      table[i][2] = table[i][3];
+      table[i][3] = buffer;
     }
     rep++;
   }
 
-  cpyMatrix(&output[0][0], out);
+  cpyMatrix(&table[0][0], out);
 return;
 }
 
