@@ -12,7 +12,10 @@ void constructRoundKey(unsigned char roundKey[4][4], unsigned char *proundKey)
 
   static int RconIndex = -1;
   RconIndex++;
-
+  if(RconIndex == 10)
+  {
+    RconIndex = 0;
+  }
   unsigned char buffer[4];
 
   unsigned char rotWord[4];

@@ -11,6 +11,7 @@ void deconstructRoundKey(unsigned char roundKey[4][4], unsigned char *out)
   unsigned char reRcon[] = {0x36, 0x1b, 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01};
   static int reRconIndex = -1;
   reRconIndex++;
+  if(reRconIndex == 10)reRconIndex = 0;
 
   unsigned char rotWord[4];
 
@@ -33,7 +34,7 @@ void deconstructRoundKey(unsigned char roundKey[4][4], unsigned char *out)
     }
   }
 
-  rotWord[0] = rotWord[0] ^ 0x01;
+  rotWord[0] = rotWord[0] ^ reRcon[reRconIndex];
 
   for(int i = 0; i < 4; i++)
   {
