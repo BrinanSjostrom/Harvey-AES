@@ -1,5 +1,5 @@
 #ifndef _RIJNDAEL_H_
-#define _RIGNDAEL_H_
+#define _RIJNDAEL_H_
 
 #include <stdio.h>
 #include "aesSteps.h"
