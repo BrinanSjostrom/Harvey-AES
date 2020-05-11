@@ -23,11 +23,7 @@ int getArgs(char chArg, char *strArg, int argc, char *argv[])
   {
     if(argv[i][1] == chArg || strcmp(argv[i], strArg) == 0)
     {
-      if(i + 1 == argc)
-      {
-        return 0;
-      }
-      return i + 1;
+      return i;
     }
   }
   return 0;

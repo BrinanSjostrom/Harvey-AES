@@ -8,10 +8,12 @@
 
 unsigned char *decrypt(unsigned char *cipher_text, unsigned char key[4][4], size_t in_size, size_t *out_size)
 {
-  unsigned char *base64_str = malloc(*out_size * sizeof(unsigned char));
+  unsigned char *base64_str = malloc(in_size * sizeof(unsigned char));
   unsigned char buffer[4][4];
   unsigned char orgKey[4][4];
   cpyMatrix(&key[0][0], &orgKey[0][0]);
+
+
 
   for(int i = 0; i < in_size; i+=16)
   {
@@ -26,7 +28,7 @@ unsigned char *decrypt(unsigned char *cipher_text, unsigned char key[4][4], size
     }
     cpyMatrix(&orgKey[0][0], &key[0][0]);
     invrijndael(buffer, key, &buffer[0][0]);
-    int r = n - 16;
+    int r = i;
     for(int column = 0; column < 4; column++)
     {
       for(int row = 0; row < 4; row++)
