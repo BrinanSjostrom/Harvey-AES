@@ -1,3 +1,6 @@
+#ifndef _BASE64_H_
+#define _BASE64_H_
+
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -97,3 +100,5 @@ void base64_cleanup()
 {
   free(decoding_table);
 }
+
+#endif

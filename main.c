@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "file/fileRW.h"
+#include "aes/aes/encrypt.h"
 #include "aes/invaes/decrypt.h"
 #include "input/getArgs.h"
 
@@ -30,14 +31,53 @@ int main(int argc, char *argv[])
     writeFile("key.txt", 16, &genKey[0]);
     return 0;
   }
-  unsigned char *key;
-  if(int loc = getArgs('k', "--key", argc, argv))
+  unsigned char key[4][4];
+  if(getArgs('k', "--key", argc, argv))
   {
-    int size;
-    key = readFile(argv[loc + 1], &size);
+    size_t size;
+    unsigned char *pKey = readFile(argv[getArgs('k', "--key", argc, argv) + 1], &size);
     if(size != 16)
     {
       fprintf(stderr, "[!]key size is too big or too small\n");
+      return 1;
+    }
+    int i = 0;
+    for(int row = 0; row < 4; row++)
+    {
+      for(int column = 0; column < 4; column++)
+      {
+        key[row][column] = *(pKey + i);
+	i++;
+      } 
+    }
+  }
+  unsigned char *filePath;
+  if(getArgs('f', "--file", argc, argv))
+  {
+    filePath = argv[getArgs('f', "--file", argc, argv) + 1];
+  }
+
+  if(getArgs('m', "--mode", argc, argv))
+  {
+    if(!strcmp(argv[getArgs('m', "--mode", argc, argv) + 1],"e"))
+    {
+      size_t size;
+      unsigned char *str = readFile(filePath, &size);
+      unsigned char *cipher = encrypt(str, key, size, &size);
+      free(str);
+      writeFile(filePath, size, cipher);
+    }
+    else if(!strcmp(argv[getArgs('m', "--mode", argc, argv) + 1],"d"))
+    {
+      size_t size;
+      unsigned char *str = readFile(filePath, &size);
+      unsigned char *cipher = decrypt(str, key, size, &size);
+      free(str);
+      writeFile(filePath, size, cipher);
+    }
+    else
+    {
+      fprintf(stderr, "[!] Not a valid mode\n");
       return 1;
     }
   }
