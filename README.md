@@ -1,7 +1,7 @@
 # Harvey-AES
 ## How it works
 Harvey-AES encrypts files using base64 encoding and AES(rijndael cipher). It's also named after my dog Harvey.
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/GRIM-OPS/Harvey-AES/blob/master/harvey.jpg)
 ## Getting it up and running
 ### Compiling
 You must have gcc installed!
