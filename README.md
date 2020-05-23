@@ -10,9 +10,13 @@ chmod u+x install.sh
 ./install.sh
 harvey --gen
 ```
-This script will compile the code into an exexutablevey and move it into the /usr/bin/ directory making it possible to use it as a command
+This script will compile the code into an exexutable named harvey and move it into the /usr/bin/ directory making it possible to use it as a command. You don't have to use the harvey --gen command but you do have to have a file with 16 characters in it to be able to use the tool.
 ### Using
 ```
 harvey --help
 ```
-This command will bring up a help menu. Notice that you must have a
+This command will bring up a help menu.
+```
+harvey --file test.txt --key key.txt --mode e
+```
+This command shows all the proper options you need to have to be able to encrpyt the test.txt file. Changing the mode from e to d will decrypt the file instead of encrypting it.
