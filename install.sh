@@ -1,2 +1,3 @@
 #/bin/sh
-gcc -o AES -g main.c
+gcc -o harvey -g main.c
+mv harvey /usr/bin/
