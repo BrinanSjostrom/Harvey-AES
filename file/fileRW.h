@@ -8,6 +8,11 @@
 unsigned char *readFile(char *fileName, size_t *fileSize)
 {
   FILE *pFile = fopen(fileName, "rb");
+  if(!pFile)
+  {
+    fprintf(stdin, "[!] Cannot open %s\n", fileName);
+    exit(1);
+  }
   int ch;
   *fileSize = 0;
   unsigned char *fileStr = (unsigned char*)malloc(sizeof(unsigned char));
@@ -30,6 +35,11 @@ return fileStr;
 int writeFile(char *fileName, size_t fileSize, unsigned char *fileContents)
 {
   FILE *pFile = fopen(fileName, "wb+");
+  if(!pFile)
+  {
+    fprintf(stdin, "[!] Cannot open %s\n", fileName);
+    exit(1);
+  }
   int ch = 0;
 
   for(int i = 0; i < fileSize; i++)
@@ -37,7 +47,7 @@ int writeFile(char *fileName, size_t fileSize, unsigned char *fileContents)
     ch = *(fileContents + i);
     fputc(ch, pFile);
   }
-fclose(pFile);
+  fclose(pFile);
 return 0;
 }
 
