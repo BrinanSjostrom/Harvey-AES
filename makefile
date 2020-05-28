@@ -1,3 +1,9 @@
+CC=gcc
+CFLAGS=-g
+BIN=/usr/bin
+EXE=harvey
+SRC=main.c
+
 make: main.c
-	gcc -o harvey main.c -g
-	mv harvey /usr/bin
+	$(CC) -o $(EXE) $(SRC) $(CFLAGS)
+	mv $(EXE) $(BIN)
