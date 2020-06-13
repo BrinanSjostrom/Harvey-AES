@@ -45,9 +45,10 @@ int main(int argc, char *argv[])
   }
 
 
+
   unsigned char key[4][4];
   argLoc = getArgs('k', "--key", argc, argv);
-  if(argLoc)  // set key path
+  if(argLoc)                                 // user sets where key path
   {
     if(argLoc + 1 >= argc)
     {
@@ -79,9 +80,11 @@ int main(int argc, char *argv[])
     return 1;
   }
 
+
+
   unsigned char *filePath;
   argLoc = getArgs('f', "--file", argc, argv);
-  if(argLoc)  // Get file path
+  if(argLoc)                                     // user sets file path
   {
     if(argLoc + 1 >= argc)
     {
@@ -97,8 +100,9 @@ int main(int argc, char *argv[])
   }
 
 
+
   argLoc = getArgs('m', "--mode", argc, argv);
-  if(argLoc) //This is the mode, either decrypt or encrypt
+  if(argLoc)                                                      //This is the mode, either decrypt or encrypt
   {
     if(argLoc + 1 >= argc)
     {
