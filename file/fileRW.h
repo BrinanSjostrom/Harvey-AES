@@ -4,15 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/*********************************
+Function will open file and return
+a char pointer with file contents 
+*********************************/
 unsigned char *readFile(char *fileName, size_t *fileSize)
 {
   FILE *pFile = fopen(fileName, "rb");
-  if(!pFile)
-  {
-    fprintf(stdin, "[!] Cannot open %s\n", fileName);
-    exit(1);
-  }
+  if(!pFile)fprintf(stdin, "[!] Cannot open %s\n", fileName);exit(1);
+
   int ch;
   *fileSize = 0;
   unsigned char *fileStr = (unsigned char*)malloc(sizeof(unsigned char));
@@ -32,16 +32,18 @@ unsigned char *readFile(char *fileName, size_t *fileSize)
 return fileStr;
 }
 
+/*********************************
+Function will open file and write
+whatever is in the fileContents
+variable to the file, then return
+0 if the process is successful
+*********************************/
 int writeFile(char *fileName, size_t fileSize, unsigned char *fileContents)
 {
   FILE *pFile = fopen(fileName, "wb+");
-  if(!pFile)
-  {
-    fprintf(stdin, "[!] Cannot open %s\n", fileName);
-    exit(1);
-  }
-  int ch = 0;
+  if(!pFile)fprintf(stdin, "[!] Cannot open %s\n", fileName);exit(1);
 
+  int ch = 0;
   for(int i = 0; i < fileSize; i++)
   {
     ch = *(fileContents + i);

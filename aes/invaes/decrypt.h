@@ -6,7 +6,7 @@
 #include "cpyMatrix.h"
 #include "../../base64/base64.h"
 
-unsigned char *decrypt(unsigned char *cipher_text, unsigned char key[4][4], size_t in_size, size_t *out_size)
+unsigned char *decrypt(unsigned char *cipher_text, unsigned char key[4][4], size_t in_size, size_t *out_size)  // same as encrypt but backwords
 {
   unsigned char *base64_str = malloc(in_size * sizeof(unsigned char));
   unsigned char buffer[4][4];

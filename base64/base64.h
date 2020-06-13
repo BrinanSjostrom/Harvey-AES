@@ -1,3 +1,6 @@
+// Got this code from https://stackoverflow.com/questions/342409/how-do-i-base64-encode-decode-in-c:
+
+
 #ifndef _BASE64_H_
 #define _BASE64_H_
 

@@ -8,6 +8,8 @@
 #include "../aes/aesSteps.h"
 #include "../aes/constructRoundKey.h"
 
+
+// Wow it inverts the affects of a rigndael cipher!!!! 
 void invrijndael(unsigned char cipherText[4][4], unsigned char roundKey[4][4], unsigned char *out)
 {
 

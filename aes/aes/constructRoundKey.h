@@ -3,7 +3,7 @@
 #include "aesSteps.h"
 #include "cpyMatrix.h"
 
-void constructRoundKey(unsigned char roundKey[4][4], unsigned char *proundKey)
+void constructRoundKey(unsigned char roundKey[4][4], unsigned char *proundKey) // This function will construct the next round key for the next step
 {
 
   unsigned char newRoundKey[4][4];

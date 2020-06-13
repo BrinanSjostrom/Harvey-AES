@@ -15,7 +15,7 @@ void mixColumns(unsigned char[4][4], unsigned char *);
 void addRoundKey(unsigned char[4][4], unsigned char[4][4], unsigned char *);
 
 
-void subBytes(unsigned char table[4][4], unsigned char *out)
+void subBytes(unsigned char table[4][4], unsigned char *out)  //substitutes each byte with a byte from the lookup table
 {
   unsigned char output[4][4];
   for(int row = 0; row < 4; row++)
@@ -31,7 +31,7 @@ return;
 }
 
 
-void shiftRows(unsigned char table[4][4], unsigned char *out)
+void shiftRows(unsigned char table[4][4], unsigned char *out)  // shifts rows (top one 0 times) (second one from top 1 time) and so on
 {
   unsigned char buffer;
   int rep = 0;
@@ -53,7 +53,17 @@ return;
 }
 
 
-void mixColumns(unsigned char table[4][4], unsigned char *out)
+/********************************
+Im gonna be completley honest,
+I'm in the Army and this shit
+gives me more PTSD than anything
+ive ever seen in the Army. To put
+this into perspective, I would
+have rather cut my ball sack off
+with a rusty spoon than code
+this function ever again.
+********************************/
+void mixColumns(unsigned char table[4][4], unsigned char *out)  //use galois field math to (mix columns)
 {
   unsigned char output[4][4];
   unsigned char charColumn[4];
@@ -95,7 +105,7 @@ return;
 }
 
 
-void addRoundKey(unsigned char input[4][4], unsigned char roundKey[4][4], unsigned char *out)
+void addRoundKey(unsigned char input[4][4], unsigned char roundKey[4][4], unsigned char *out) // XOR that shit
 {
   unsigned char output[4][4];
 

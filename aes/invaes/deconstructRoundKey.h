@@ -4,7 +4,7 @@
 #include "cpyMatrix.h"
 #include "../aes/aesSteps.h"
 
-void deconstructRoundKey(unsigned char roundKey[4][4], unsigned char *out)
+void deconstructRoundKey(unsigned char roundKey[4][4], unsigned char *out)  // decontructs key for decryption
 {
   unsigned char newRoundKey[4][4];
 

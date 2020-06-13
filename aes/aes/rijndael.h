@@ -6,7 +6,10 @@
 #include "constructRoundKey.h"
 #include "cpyMatrix.h"
 
-
+/*****************************************************
+uses two four by four matricies to encrypt one of them
+and uses the other as a key
+*****************************************************/
 void rijndael(unsigned char plainText[4][4], unsigned char roundKey[4][4], unsigned char *out)
 {
 

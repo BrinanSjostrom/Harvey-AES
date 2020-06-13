@@ -15,18 +15,20 @@ find them.
 
 int getArgs(char chArg, char *strArg, int argc, char *argv[])
 {
-  if(!(argc > 1))
+  if(!(argc > 1))  //checks the amount of CLI args
   {
-    return 0;
+    fprintf(stderr, "[!] No arguments found\n");
+    exit(1);
   }
-  for(int i = 1; i < argc; i++)
+
+  for(int i = 1; i < argc; i++)  //searches for args matching description 
   {
     if(argv[i][1] == chArg || strcmp(argv[i], strArg) == 0)
     {
       return i;
     }
   }
-  return 0;
+  return 0; //returns a 0 if the CLI arg wasn't found
 }
 
 #endif

@@ -8,7 +8,16 @@
 #include "cpyMatrix.h"
 #include "../../base64/base64.h"
 
-char *encrypt(unsigned char *str, unsigned char key[4][4], size_t inSize, size_t *outSize)
+
+
+/*************************************************
+This idea behind this function is to pretty much
+manage large amounts of data. so take a large file
+and run that shit through 16 bytes at a time. also
+it turns a series of hex values in a variable to
+a four by four matrix
+*************************************************/
+char *encrypt(unsigned char *str, unsigned char key[4][4], size_t inSize, size_t *outSize)  //uses rijndael cipher to encrypt 16 bytes at a time
 {
 
   unsigned char orgKey[4][4];
