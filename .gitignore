@@ -8,6 +8,6 @@ input/a.out
 input/test.c
 a.out
 test.c
-myinstall.sh
 harvey
 key.txt
+mymakefile
