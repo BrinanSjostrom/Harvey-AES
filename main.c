@@ -14,6 +14,7 @@ License:
 #include "aes/aes/encrypt.h"
 #include "aes/invaes/decrypt.h"
 #include "input/getArgs.h"
+#include "input/getInput.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,38 +56,32 @@ int main(int argc, char *argv[])
 
 
   unsigned char key[4][4];
-  argLoc = getArgs('k', "--key", argc, argv);
-  if(argLoc)                                 // user sets where key path
+  printf("[!] Password: ");
+  char *pKey = getInput();
+  if(strlen(pKey) > 16)
   {
-    if(argLoc + 1 >= argc)
-    {
-      fprintf(stderr, "[!] No key option found\n");
-      return 1;
-    }
-    printf("[+] Getting key...\n");
-    size_t size;
-    unsigned char *pKey = readFile(argv[argLoc + 1], &size);
-    if(size != 16)
-    {
-      fprintf(stderr, "[!]key size is too big or too small\n");
-      return 1;
-    }
-    int i = 0;
-    for(int row = 0; row < 4; row++)
-    {
-      for(int column = 0; column < 4; column++)
-      {
-        key[row][column] = *(pKey + i);
-	i++;
-      } 
-    }
-    printf("[+] Key found!\n");
-  }
-  else
-  {
-    fprintf(stderr, "[!] Need key file to operate\n");
+    printf("[!] Password is greater than 16\n");
     return 1;
   }
+  else if(strlen(pKey) < 16)
+  {
+    for(int i = strlen(pKey); i < 16; i++)
+    {
+      pKey = (char*)realloc(pKey, i + 1);
+      *(pKey + i) = 'v';
+    }
+    *(pKey + 16) = '\0';
+  }
+  int i = 0;
+  for(int row = 0; row < 4; row++)
+  {
+    for(int column = 0; column < 4; column++)
+    {
+      key[row][column] = *(pKey + i);
+      i++;
+    } 
+  }
+  printf("[+] Generated key\n");
 
 
 
