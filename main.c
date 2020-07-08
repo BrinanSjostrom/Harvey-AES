@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     return 0;
   }
 
-  if(getArgs('g', "--gen", argc, argv))  // Generate a 128 bit key
+  if(getArgs('g', "--gen", argc, argv))  // Generate a 128 bit key (Not useable)
   {
     unsigned char genKey[16];
     srand(time(0));
