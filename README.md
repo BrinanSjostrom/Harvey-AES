@@ -1,19 +1,26 @@
 # Harvey-AES
 ## How it works
-Harvey-AES encrypts files using base64 encoding and AES(rijndael cipher). It's also named after my dog Harvey.
+Harvey-AES encrypts files using [base64](https://en.wikipedia.org/wiki/Base64) encoding 
+and [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard). It's also named after my dog Harvey.
+
 ![alt text](https://github.com/GRIM-OPS/Harvey-AES/blob/master/harvey.jpg)
-## Getting it up and running
-### Compiling
-You must have gcc installed!
+
+## Compiling
+You must have GCC installed! If you don't know how to install it, follow the guide [here](https://gcc.gnu.org/install/).
+
 ```
 grim-ops@computer:~$ sudo make
 ```
-This script will compile the code into an exexutable named harvey and move it into the /usr/bin/ directory making it possible to use it as a command. You don't have to use the harvey --gen command but you do have to have a file with 16 characters in it to be able to use the tool.
-### Using
+This script will compile the code into an exexutable and move it into the `/usr/bin/` directory, allowing you to use harvey as a command. 
+
+**WORD OF WARNING**: your file must have >=16 characters to use this tool.
+
+## Usage Examples
 ```
 grim-ops@computer:~$ harvey --help
 ```
-This command will bring up a help menu.
+Brings up the tool's help menu.
+
 ```
 grim-ops@computer:~$ harvey --file file.txt --mode e
 [!] Password: Password123
@@ -26,4 +33,5 @@ grim-ops@computer:~$ harvey --file file.txt --mode e
 [+] File written!
 
 ```
-This command shows all the proper options you need to have to be able to encrpyt the test.txt file. Changing the mode from e to d will decrypt the file instead of encrypting it.
+Shows the flags you need to encrpyt a file named `test.txt`.
+With the mode flag, `e` is for encrypt and `d` is for decrypt.
