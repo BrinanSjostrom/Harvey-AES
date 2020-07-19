@@ -7,7 +7,6 @@ Harvey-AES encrypts files using base64 encoding and AES(rijndael cipher). It's a
 You must have gcc installed!
 ```
 grim-ops@computer:~$ sudo make
-grim-ops@computer:~$ harvey --gen
 ```
 This script will compile the code into an exexutable named harvey and move it into the /usr/bin/ directory making it possible to use it as a command. You don't have to use the harvey --gen command but you do have to have a file with 16 characters in it to be able to use the tool.
 ### Using
