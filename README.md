@@ -13,8 +13,6 @@ grim-ops@computer:~$ sudo make
 ```
 This script will compile the code into an exexutable and move it into the `/usr/bin/` directory, allowing you to use harvey as a command. 
 
-**WORD OF WARNING**: your file must have >=16 characters to use this tool.
-
 ## Usage Examples
 ```
 grim-ops@computer:~$ harvey --help
