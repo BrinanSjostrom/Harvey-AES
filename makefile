@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-g
-BIN=/usr/bin
+BIN=/usr/local/bin
 EXE=harvey
 SRC=main.c
 

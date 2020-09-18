@@ -9,12 +9,12 @@ License:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <time.h>
 #include "file/fileRW.h"
 #include "aes/aes/encrypt.h"
 #include "aes/invaes/decrypt.h"
 #include "input/getArgs.h"
-#include "input/getInput.h"
 
 int main(int argc, char *argv[])
 {
@@ -40,8 +40,13 @@ int main(int argc, char *argv[])
 
 
   unsigned char key[4][4];
-  printf("[!] Password: ");
-  char *pKey = getInput();
+  char *pKey = getpass("[!] Password: ");
+	char *confirmedKey = getpass("[!] Confirm Password: ");
+	if(strcmp(pKey, confirmedKey)!=0)
+	{
+		fprintf(stderr, "[!] Passwords are not the same!\n");
+		return 1;
+	}
   if(strlen(pKey) > 16)
   {
     printf("[!] Password is greater than 16\n");
