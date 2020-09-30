@@ -22,6 +22,7 @@ Brings up the tool's help menu.
 ```
 grim-ops@computer:~$ harvey --file file.txt --mode e
 [!] Password: Password123
+[!] Confirm Password: Password123
 [+] Generated key
 [+] File Path: file.txt
 [+] Mode: Encrypt
