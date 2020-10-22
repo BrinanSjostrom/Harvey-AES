@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     printf("-h or --help\t\tDisplay help menu\n");
     printf("-m or --mode\t\tSets mode: [e]ncrypt, [d]ecrypt\n");
     printf("-f or --file\t\tSets file input: <filepath>\n");
-    printf("-k or --key \t\tSets path to key: <filepath> Needs file to hold 128bit(16 byte) sequence\n");
     return 0;
   }
   else if(getArgs('h', "--help", argc, argv))
@@ -33,7 +32,6 @@ int main(int argc, char *argv[])
     printf("-h or --help\t\tDisplay help menu\n");
     printf("-m or --mode\t\tSets mode: [e]ncrypt, [d]ecrypt\n");
     printf("-f or --file\t\tSets file input: <filepath>\n");
-    printf("-k or --key \t\tSets path to key: <filepath> Needs file to hold 128bit(16 byte) sequence\n");
     return 0;
   }
 
