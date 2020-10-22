@@ -11,7 +11,7 @@ You must have GCC installed! If you don't know how to install it, follow the gui
 ```
 grim-ops@computer:~$ sudo make
 ```
-This script will compile the code into an exexutable and move it into the `/usr/bin/` directory, allowing you to use harvey as a command. 
+This script will compile the code into an exexutable and move it into the `/usr/local/bin/` directory, allowing you to use harvey as a command. 
 
 ## Usage Examples
 ```
