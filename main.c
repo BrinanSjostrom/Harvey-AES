@@ -15,6 +15,7 @@ License:
 #include "aes/aes/encrypt.h"
 #include "aes/invaes/decrypt.h"
 #include "input/getArgs.h"
+#include "input/get_input.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,37 +37,45 @@ int main(int argc, char *argv[])
   }
 
 
-
   unsigned char key[4][4];
-  char *pKey = getpass("[!] Password: ");
-	char *confirmedKey = getpass("[!] Confirm Password: ");
-	if(strcmp(pKey, confirmedKey)!=0)
-	{
-		fprintf(stderr, "[!] Passwords are not the same!\n");
-		return 1;
-	}
-  if(strlen(pKey) > 16)
+	char *pKey;
+	char *confirmedKey;
+  while(1)
   {
-    printf("[!] Password is greater than 16\n");
-    return 1;
-  }
-  else if(strlen(pKey) < 16)
-  {
-    for(int i = strlen(pKey); i < 16; i++)
+    printf("[!] Password: ");
+	  get_input(&pKey, 16);
+	  printf("[!] Confirm Password: ");
+	  get_input(&confirmedKey, 16);
+	
+	  if(strcmp(pKey, confirmedKey))
     {
-      pKey = (char*)realloc(pKey, i + 1);
-      *(pKey + i) = 'v';
+      fprintf(stderr, "[!] Passwords are not the same!\n");
+		  continue;
     }
-    *(pKey + 16) = '\0';
-  }
-  int i = 0;
-  for(int row = 0; row < 4; row++)
-  {
-    for(int column = 0; column < 4; column++)
+		else if(strlen(pKey) > 16)
     {
-      key[row][column] = *(pKey + i);
-      i++;
-    } 
+      printf("[!] Password is greater than 16\n");
+      continue;
+    }
+		else if(strlen(pKey) < 16)
+    {
+      for(int i = strlen(pKey); i < 16; i++)
+      {
+        pKey = (char*)realloc(pKey, i + 1);
+        *(pKey + i) = 'v';
+      }
+      *(pKey + 16) = '\0';
+    }
+    int i = 0;
+    for(int row = 0; row < 4; row++)
+    {
+      for(int column = 0; column < 4; column++)
+      {
+        key[row][column] = *(pKey + i);
+        i++;
+      } 
+    }
+	  break;
   }
   printf("[+] Generated key\n");
 
